@@ -67,21 +67,23 @@ const systemPrompt = `
 - **Frontend UI**: Angular 19 (Signals-based UI) / Streamlit (Planned Agent Dashboard)
 - **Marketplace APIs**: Yahoo Finance API (Live Indices), Google Search API (Grounded News)
 
-## 🏃 Foolproof Quick Start
+## 🏃 Foolproof Quick Start (2-Minute Setup)
 
-1. **Clone & Install**:
+1. **Install Dependencies**:
    ```bash
-   git clone <repo-url>
-   npm install                    # For Angular UI
-   pip install -r requirements.txt # For Python Agents
+   npm install
    ```
-2. **Setup Environment**:
-   - Create keys at [Google AI Studio](https://aistudio.google.com/apikey).
-   - Copy `.env.example` to `.env`.
-3. **Run Dev Server**:
+2. **Setup Gemini API Key**:
+   - Get a free key at [Google AI Studio](https://aistudio.google.com/apikey).
+   - Open `src/environments/environment.ts`.
+   - Paste your key in `geminiApiKey`.
+3. **Run Application**:
    ```bash
-   npm start                      # Open http://localhost:4200
+   npm start
+   # → http://localhost:4200 (Live Reload)
    ```
+
+*Note: The Python `requirements.txt` is provided for the extended Agentic Backend Logic layer. The core UI and Navigator Agent run immediately via Angular.*
 
 ---
 **Agentic Logic Location**: `src/app/services/chat.service.ts`
