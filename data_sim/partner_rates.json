@@ -1,0 +1,24 @@
+[
+  {
+    "bank": "HDFC Bank",
+    "product": "Home Loan",
+    "base_rate": "8.35%",
+    "et_exclusive": true,
+    "last_updated": "2026-03-20"
+  },
+  {
+    "bank": "Axis Bank",
+    "product": "Ace Credit Card",
+    "cashback": "2%",
+    "approval": "Instant (CIBIL 750+)",
+    "et_exclusive": true,
+    "last_updated": "2026-03-24"
+  },
+  {
+    "bank": "Mirae Asset",
+    "product": "Large Cap Fund",
+    "3y_cagr": "21.4%",
+    "category": "Equity",
+    "last_updated": "2026-03-25"
+  }
+]

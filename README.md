@@ -1,95 +1,75 @@
 # ET Concierge v2 — Agentic AI Financial Intelligence
-### ET AI Hackathon 2026 · Angular 19 · Gemini Flash (Free)
+### ET AI Hackathon 2026 · Angular 19 · Gemini Flash
 
 ---
 
-## Quick Start
+## 🚀 The Vision
+ET Concierge is not just a chatbot; it is a **Multi-Agent Orchestration System** designed to bridge the gap between financial news and actionable wealth building. It proactively navigates the Economic Times ecosystem to deliver personalized, data-grounded intelligence.
 
-```bash
-npm install
-ng serve
-# → http://localhost:4200
+## 🏗️ System Architecture
+We use a **System-of-Agents** approach to handle the complexity of financial life management.
+
+```mermaid
+graph TD
+    User((User)) --> Orchestrator[Agent Orchestrator]
+    
+    subgraph "Agentic Layer"
+        Orchestrator --> Profiler[Profiling Agent]
+        Orchestrator --> Navigator[Navigator Agent]
+        Orchestrator --> Opp[Opportunity Agent]
+        Orchestrator --> Fulfil[Fulfilment Agent]
+    end
+    
+    Profiler --> Memory[(User Memory Model)]
+    Memory --> Navigator
+    Navigator --> Markets[Live ET Markets API]
+    Opp --> Triggers{Contextual Match}
+    Triggers --> Products[ET Partner Ecosystem]
+    Fulfil --> Tasks[Actionable Task List]
 ```
 
-## Enable Real AI (Free — 2 minutes)
+## 🗺️ Feature Mapping
+Mapping the "What You May Build" hackathon requirements to our specific implementation:
 
-1. Go to **https://aistudio.google.com/apikey** and create a free key
-2. Open `src/environments/environment.ts`
-3. Replace `YOUR_GEMINI_API_KEY_HERE` with your key
-4. Save and run — live Gemini Flash responses activate automatically
+| Requirement (PDF) | Module / Agent | Implementation Detail |
+| :--- | :--- | :--- |
+| **Financial Life Navigator** | `src/app/services/chat.service.ts` | The **Navigator Agent** delivers briefings based on user profile + live market data. |
+| **Marketplace Agent** | `src/app/services/portfolio.service.ts` | The **Opportunity Agent** matches users to ET partner products (HDFC, Axis, Mirae). |
+| **Personalized Insights** | `src/app/services/gemini.service.ts` | Chain-of-Thought prompting surfaces retirement gaps and portfolio outliers. |
+| **Seamless Fulfilment** | `src/app/features/chat/chat.component.ts` | The **Fulfilment Agent** transforms advice into a 3-step actionable task list. |
 
-> Free tier: 15 requests/min, 1500/day — perfect for demo
+## 🧪 The "Secret Sauce": Prompt Engineering
+Professional AI engineering requires more than just API calls. We treat prompts as **first-class code citizens**:
+- **Chain-of-Thought (CoT)**: Our prompts instruct Gemini to first calculate financial ratios (e.g., salary-to-EMI) before generating a recommendation.
+- **Separation of Concerns**: System prompts are managed in the `/prompts` layer to ensure logical isolation.
+- **Grounded Knowledge**: We simulate a live knowledge base in `/data_sim` (partner rates, ET Prime articles) to prevent hallucinations.
+
+## 🛠️ Tech Stack & Security
+- **Frontend**: Angular 19 (Standalone Components, Signals)
+- **AI Engine**: Gemini Flash (Free Tier) via Google AI Studio
+- **Market Data**: Multi-proxy live fetch for NIFTY/SENSEX indices.
+- **Environmental Safety**: Use `.env.example` to set up your local keys. `.env` is ignored to prevent leaks.
+
+## 🏃 Quick Start
+
+1. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
+2. **Setup API Key**:
+   - Create a free key at [Google AI Studio](https://aistudio.google.com/apikey).
+   - Copy `.env.example` to `.env` (managed in `environment.ts`).
+3. **Run Dev Server**:
+   ```bash
+   npm start
+   # Open http://localhost:4200
+   ```
+
+## 📈 Extensibility & Scaling
+- **Real-time NSE/BSE Hooks**: Future integration for direct sub-second order book data.
+- **ET Prime SSO**: Connect directly to existing user subscriptions for deep content gating.
+- **Wealth RM Handoff**: High Discovery Score (85+) triggers a handoff to human Relationship Managers.
 
 ---
-
-## Architecture — 4 Agentic Layers
-
+**Agentic Logic Location**: `src/app/services/chat.service.ts` — *Check the `sendMessage` orchestration loop.*
 ```
-┌─────────────────────────────────────────────────────────┐
-│                   ET Concierge v2                       │
-├──────────────┬──────────────┬────────────┬──────────────┤
-│  Profiling   │  Navigator   │Opportunity │  Fulfilment  │
-│    Agent     │    Agent     │   Agent    │    Agent     │
-│              │              │            │              │
-│ Runs 5-step  │ Delivers AI  │ Keyword    │ Executes     │
-│ onboarding   │ briefings    │ interrupt  │ actions:     │
-│ modal        │ from live    │ — fires    │ SIP, apply,  │
-│              │ market data  │ proactively│ register     │
-│ Builds user  │ + ET Markets │ on context │              │
-│ memory model │              │ match      │ Checks off   │
-│              │ Gemini Flash │            │ task list    │
-│ Activates    │ OR local     │ No user    │              │
-│ other agents │ engine       │ prompt     │ Confirms     │
-│ on complete  │              │ needed     │ completion   │
-└──────────────┴──────────────┴────────────┴──────────────┘
-```
-
-## Proactive Opportunity Agent
-
-When user message contains trigger keywords, the Opportunity Agent
-fires an interrupt BEFORE the main response — this is the key
-agentic behaviour that differentiates from a chatbot:
-
-| Keyword match          | Opportunity surfaced        |
-|------------------------|-----------------------------|
-| home / loan / property | HDFC Home Loan 8.35%        |
-| invest / fund / sip    | Quant Mid Cap (ET Markets)  |
-| event / summit / talk  | ET Wealth Summit Mar 28     |
-| card / cashback        | Axis Ace pre-approval       |
-
-## Fulfilment Agent Actions
-
-After intent-heavy messages (apply, register, invest, start SIP),
-the Fulfilment Agent injects a task list 1.2s later. Each row is
-clickable — checking it off fires a confirmation message and
-updates the Discovery Score.
-
-## File Structure
-
-```
-src/app/
-├── models/index.ts                    All TypeScript interfaces
-├── services/
-│   ├── gemini.service.ts              Free Gemini Flash API
-│   ├── market.service.ts              Live NIFTY/Gold ticker
-│   ├── user-profile.service.ts        User state + agent status
-│   ├── portfolio.service.ts           Portfolio + opportunities
-│   └── chat.service.ts                4-agent orchestration
-└── features/
-    ├── header/                        Ticker + agent status bar
-    ├── sidebar/                       Profile + ecosystem nav
-    ├── chat/                          Main conversation panel
-    ├── right-panel/                   Portfolio + ops + journey
-    └── profiling/                     5-step onboarding modal
-```
-
-## Hackathon Pitch (30-second version)
-
-> "ET Concierge is a 4-agent orchestration system. The Profiling
-> Agent builds your financial identity in 3 minutes. The Navigator
-> Agent delivers personalised briefings from live ET Markets data
-> via Gemini Flash. The Opportunity Agent monitors context in real
-> time and surfaces matched ET products proactively — without being
-> asked. The Fulfilment Agent closes the loop by executing, not just
-> recommending. This is the ET user going from 10% to 100% of ET's
-> ecosystem value."
