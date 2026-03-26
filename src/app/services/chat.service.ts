@@ -58,7 +58,7 @@ RESPONSE RULES:
 - Keep responses under 80 words — concise but punchy
 - Naturally mention relevant ET products/services when they fit (not forced)
 - **CRITICAL**: Always end your response with a clear question or a choice for the user to make (e.g. "Should we look at X or Y first?")
-- **FORMATTING**: Use markdown bolding for numbers and key terms. Use bullet points for scannability.
+- **FORMATTING**: Use HTML bolding (<strong>) for numbers and key terms. Use bullet points for scannability.
 - Never say "I'm an AI" or "as a language model"`;
   }
 
@@ -93,7 +93,7 @@ RESPONSE RULES:
         role:     'ai',
         agent:    'navigator',
         timestamp: new Date(),
-        text:     `Good morning, <strong class="text-gold">Durgesh </strong>. Markets are up — NIFTY +0.74%. Your portfolio outperformed by 1.2% this month. The most urgent item is a <strong class="text-red">₹29L retirement gap</strong> that needs a strategy shift. **Should we start there, or would you like to see your tax-saving picks for FY26 first?**`,
+        text:     `Good morning, <strong class="text-gold">Durgesh </strong>. Markets are up — NIFTY +0.74%. Your portfolio outperformed by 1.2% this month. The most urgent item is a <strong class="text-red">₹29L retirement gap</strong> that needs a strategy shift. <strong class="text-gold">Should we start there, or would you like to see your tax-saving picks for FY26 first?</strong>`,
         insights: greetingInsights,
         chips,
       },
@@ -102,7 +102,7 @@ RESPONSE RULES:
         role:      'ai',
         agent:     'opportunity',
         timestamp: new Date(),
-        text:      `<strong class="text-gold">Opportunity Agent</strong> → I've flagged two urgent items: Your legacy LIC policy is underperforming compared to the market, and there's an ET Wealth Summit happening in 3 days that covers exactly your portfolio needs. **Want the details?**`,
+        text:      `<strong class="text-gold">Opportunity Agent</strong> → I've flagged two urgent items: Your legacy LIC policy is underperforming compared to the market, and there's an ET Wealth Summit happening in 3 days that covers exactly your portfolio needs. <strong class="text-gold">Want the details?</strong>`,
         xsellItems,
       },
     ]);
@@ -175,7 +175,7 @@ RESPONSE RULES:
       agent:     'opportunity',
       interrupt: true,
       timestamp: new Date(),
-      text:      `<strong class="text-gold">Opportunity Agent →</strong> This matches your profile perfectly. **Should I add this to your plan?**`,
+      text:      `<strong class="text-gold">Opportunity Agent →</strong> This matches your profile perfectly. <strong class="text-gold">Should I add this to your plan?</strong>`,
       xsellItems: [{
         icon:     opp.tag === 'event' ? '📅' : opp.tag === 'market' ? '📊' : '💡',
         title:    opp.name,
@@ -256,10 +256,10 @@ RESPONSE RULES:
     let insights: InsightCard[] | undefined;
 
     if (t.includes('portfolio') || t.includes('net worth') || t.includes('allocation') || t.includes('holding')) {
-      text = `Your **₹62.4L net worth** is spread across 4 asset classes:
-- **Equity MFs**: Leading at +2.4% MoM.
-- **Legacy LIC**: Real return of 4.2% — this is "dead weight".
-I recommend surrendering the LIC policy and redirecting to a High-Growth Flexi Cap. **Should we run a comparison against NIFTY 50 first?**`;
+      text = `Your <strong class="text-gold">₹62.4L net worth</strong> is spread across 4 asset classes:
+- <strong class="text-gold">Equity MFs</strong>: Leading at +2.4% MoM.
+- <strong class="text-red">Legacy LIC</strong>: Real return of 4.2% — this is "dead weight".
+I recommend surrendering the LIC policy and redirecting to a High-Growth Flexi Cap. <strong class="text-gold">Should we run a comparison against NIFTY 50 first?</strong>`;
       insights = [
         { label: 'Equity MFs',    value: '₹34.3L', sub: '+2.4% this month', color: 'gold',  action: 'equity' },
         { label: 'Direct Stocks', value: '₹11.2L', sub: '+1.8% this month', color: 'blue',  action: 'stocks' },
@@ -273,12 +273,12 @@ I recommend surrendering the LIC policy and redirecting to a High-Growth Flexi C
       ];
 
     } else if (t.includes('retirement') || t.includes('retire') || t.includes('corpus') || t.includes('gap')) {
-      text = `Retirement goal: **₹3.2 Cr by 2037**. Current gap: **₹29L**.
+      text = `Retirement goal: <strong class="text-gold">₹3.2 Cr by 2037</strong>. Current gap: <strong class="text-red">₹29L</strong>.
 Three key levers:
-- **SIP Step-up**: +₹5K/mo closes 60% of gap.
-- **NPS Top-up**: Closes another 25%.
-- **Mid-cap Tilt**: Targeted alpha generation.
-**Which lever should we pull first to secure your 2037 target?**`;
+- <strong class="text-gold">SIP Step-up</strong>: +₹5K/mo closes 60% of gap.
+- <strong class="text-gold">NPS Top-up</strong>: Closes another 25%.
+- <strong class="text-gold">Mid-cap Tilt</strong>: Targeted alpha generation.
+<strong class="text-gold">Which lever should we pull first to secure your 2037 target?</strong>`;
       chips = [
         { label: '↑ SIP by ₹5K/month',   highlight: true,  prompt: 'How do I increase my SIP by 5000 per month to a new fund?' },
         { label: 'Open NPS account',      highlight: false, prompt: 'How does NPS help close my retirement gap?' },
@@ -287,11 +287,11 @@ Three key levers:
       ];
 
     } else if (t.includes('tax') || t.includes('80c') || t.includes('elss') || t.includes('deduction') || t.includes('fy26') || t.includes('fy 26')) {
-      text = `FY26 Tax Snapshot: **₹88,500 of 80C unused**.
-- **Max 80C**: Save ₹24,000 in tax.
-- **NPS 80CCD**: Save an extra ₹15,600.
-Best ELSS: **Quant Tax Plan** (30.2% 3Y CAGR).
-**Would you like me to create a complete FY26 tax saving roadmap for you?**`;
+      text = `FY26 Tax Snapshot: <strong class="text-gold">₹88,500 of 80C unused</strong>.
+- <strong class="text-gold">Max 80C</strong>: Save ₹24,000 in tax.
+- <strong class="text-gold">NPS 80CCD</strong>: Save an extra ₹15,600.
+Best ELSS: <strong class="text-gold">Quant Tax Plan</strong> (30.2% 3Y CAGR).
+<strong class="text-gold">Would you like me to create a complete FY26 tax saving roadmap for you?</strong>`;
       chips = [
         { label: 'Invest in Quant Tax Plan', highlight: true,  prompt: 'How do I invest in Quant Tax Plan ELSS?' },
         { label: 'Open NPS for 80CCD',       highlight: false, prompt: 'How much tax do I save with NPS 80CCD 1B?' },
@@ -385,12 +385,12 @@ Best ELSS: **Quant Tax Plan** (30.2% 3Y CAGR).
       ];
 
     } else {
-      text = `Based on your **Wealth profile**, the priority action is addressing your **₹29L retirement gap**. 
+      text = `Based on your <strong class="text-gold">Wealth profile</strong>, the priority action is addressing your <strong class="text-red">₹29L retirement gap</strong>. 
 I can also:
-- Surface **ET Markets** top picks.
-- Optimize **FY26 Tax** (₹88.5K remaining).
-- Explore **ET Masterclasses**.
-**Where should we focus our strategy today?**`;
+- Surface <strong class="text-gold">ET Markets</strong> top picks.
+- Optimize <strong class="text-gold">FY26 Tax</strong> (₹88.5K remaining).
+- Explore <strong class="text-gold">ET Masterclasses</strong>.
+<strong class="text-gold">Where should we focus our strategy today?</strong>`;
       chips = [
         { label: '🚀 Fix Retirement Gap', highlight: true,  prompt: 'What is the fastest way to close my retirement gap?' },
         { label: '📈 ET Markets Picks',  highlight: false, prompt: 'Show me ET Markets top mutual fund picks for my profile' },
