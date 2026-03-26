@@ -57,7 +57,8 @@ RESPONSE RULES:
 - Always use ₹ for Indian Rupee. Give specific numbers, fund names, rates
 - Keep responses under 80 words — concise but punchy
 - Naturally mention relevant ET products/services when they fit (not forced)
-- End every response implying the next action the user should take
+- **CRITICAL**: Always end your response with a clear question or a choice for the user to make (e.g. "Should we look at X or Y first?")
+- **FORMATTING**: Use markdown bolding for numbers and key terms. Use bullet points for scannability.
 - Never say "I'm an AI" or "as a language model"`;
   }
 
@@ -80,9 +81,10 @@ RESPONSE RULES:
     ];
 
     const chips: RecommendationChip[] = [
-      { label: 'Close my retirement gap', highlight: true,  prompt: 'How do I close my retirement gap of 29 lakhs?' },
-      { label: 'Portfolio deep-dive',     highlight: false, prompt: 'Give me a full portfolio analysis' },
-      { label: 'My tax plan for FY26',    highlight: false, prompt: 'Create my tax saving plan for FY26' },
+      { label: '📉 Fix my Retirement Gap', highlight: true,  prompt: 'How do I close my retirement gap?' },
+      { label: '💸 Optimize FY26 Tax', highlight: false, prompt: 'Show me my tax saving plan for FY26' },
+      { label: '💎 View ET Markets Picks', highlight: false, prompt: 'Give me ET Markets top mutual fund picks' },
+      { label: '🛡️ Check Insurance Gaps', highlight: false, prompt: 'Do an insurance audit for me' },
     ];
 
     this.messages.set([
@@ -91,7 +93,7 @@ RESPONSE RULES:
         role:     'ai',
         agent:    'navigator',
         timestamp: new Date(),
-        text:     `Good morning, <strong class="text-gold">Durgesh </strong>. Markets are up — NIFTY +0.74%. Your portfolio outperformed by 1.2% this month. I've identified <strong class="text-gold">4 opportunities</strong> matched to your wealth profile today. Here's your briefing:`,
+        text:     `Good morning, <strong class="text-gold">Durgesh </strong>. Markets are up — NIFTY +0.74%. Your portfolio outperformed by 1.2% this month. The most urgent item is a <strong class="text-red">₹29L retirement gap</strong> that needs a strategy shift. **Should we start there, or would you like to see your tax-saving picks for FY26 first?**`,
         insights: greetingInsights,
         chips,
       },
@@ -100,7 +102,7 @@ RESPONSE RULES:
         role:      'ai',
         agent:     'opportunity',
         timestamp: new Date(),
-        text:      `<strong class="text-gold">Opportunity Agent</strong> → Two time-sensitive items need your attention:`,
+        text:      `<strong class="text-gold">Opportunity Agent</strong> → I've flagged two urgent items: Your legacy LIC policy is underperforming compared to the market, and there's an ET Wealth Summit happening in 3 days that covers exactly your portfolio needs. **Want the details?**`,
         xsellItems,
       },
     ]);
@@ -173,7 +175,7 @@ RESPONSE RULES:
       agent:     'opportunity',
       interrupt: true,
       timestamp: new Date(),
-      text:      `<strong class="text-gold">Opportunity Agent →</strong> Detected a match for you:`,
+      text:      `<strong class="text-gold">Opportunity Agent →</strong> This matches your profile perfectly. **Should I add this to your plan?**`,
       xsellItems: [{
         icon:     opp.tag === 'event' ? '📅' : opp.tag === 'market' ? '📊' : '💡',
         title:    opp.name,
@@ -254,7 +256,10 @@ RESPONSE RULES:
     let insights: InsightCard[] | undefined;
 
     if (t.includes('portfolio') || t.includes('net worth') || t.includes('allocation') || t.includes('holding')) {
-      text = 'Your <strong class="text-gold">₹62.4L net worth</strong> across 4 asset classes. Equity MFs leading at +2.4% MoM. Drag: legacy LIC Endowment at 4.2% real return — dead weight. Recommend surrendering and redirecting to Mirae Asset Large Cap.';
+      text = `Your **₹62.4L net worth** is spread across 4 asset classes:
+- **Equity MFs**: Leading at +2.4% MoM.
+- **Legacy LIC**: Real return of 4.2% — this is "dead weight".
+I recommend surrendering the LIC policy and redirecting to a High-Growth Flexi Cap. **Should we run a comparison against NIFTY 50 first?**`;
       insights = [
         { label: 'Equity MFs',    value: '₹34.3L', sub: '+2.4% this month', color: 'gold',  action: 'equity' },
         { label: 'Direct Stocks', value: '₹11.2L', sub: '+1.8% this month', color: 'blue',  action: 'stocks' },
@@ -268,7 +273,12 @@ RESPONSE RULES:
       ];
 
     } else if (t.includes('retirement') || t.includes('retire') || t.includes('corpus') || t.includes('gap')) {
-      text = 'Retirement target: <strong class="text-gold">₹3.2 Cr by 2037</strong>. Current trajectory: ₹2.91 Cr — gap of <strong class="text-red">₹29L</strong>. Three levers: +₹5K SIP/month closes 60% of gap, NPS top-up closes another 25%, mid-cap tilt does the rest.';
+      text = `Retirement goal: **₹3.2 Cr by 2037**. Current gap: **₹29L**.
+Three key levers:
+- **SIP Step-up**: +₹5K/mo closes 60% of gap.
+- **NPS Top-up**: Closes another 25%.
+- **Mid-cap Tilt**: Targeted alpha generation.
+**Which lever should we pull first to secure your 2037 target?**`;
       chips = [
         { label: '↑ SIP by ₹5K/month',   highlight: true,  prompt: 'How do I increase my SIP by 5000 per month to a new fund?' },
         { label: 'Open NPS account',      highlight: false, prompt: 'How does NPS help close my retirement gap?' },
@@ -277,7 +287,11 @@ RESPONSE RULES:
       ];
 
     } else if (t.includes('tax') || t.includes('80c') || t.includes('elss') || t.includes('deduction') || t.includes('fy26') || t.includes('fy 26')) {
-      text = 'FY26 snapshot: <strong class="text-gold">₹88,500 of 80C unused</strong>, ₹50K 80CCD(1B) via NPS unclaimed. Your bracket saves ₹34,320 in tax by maxing both. Best ELSS right now: Quant Tax Plan (30.2% 3Y CAGR) and Mirae Tax Saver (20.1%).';
+      text = `FY26 Tax Snapshot: **₹88,500 of 80C unused**.
+- **Max 80C**: Save ₹24,000 in tax.
+- **NPS 80CCD**: Save an extra ₹15,600.
+Best ELSS: **Quant Tax Plan** (30.2% 3Y CAGR).
+**Would you like me to create a complete FY26 tax saving roadmap for you?**`;
       chips = [
         { label: 'Invest in Quant Tax Plan', highlight: true,  prompt: 'How do I invest in Quant Tax Plan ELSS?' },
         { label: 'Open NPS for 80CCD',       highlight: false, prompt: 'How much tax do I save with NPS 80CCD 1B?' },
@@ -371,11 +385,16 @@ RESPONSE RULES:
       ];
 
     } else {
-      text = `Based on your <strong class="text-gold">Wealth profile</strong> and today's market context, the highest-impact action is addressing your retirement gap (₹29L). I can also surface personalised picks from ET Markets, optimise your FY26 tax, or explore ET Financial Services — your call.`;
+      text = `Based on your **Wealth profile**, the priority action is addressing your **₹29L retirement gap**. 
+I can also:
+- Surface **ET Markets** top picks.
+- Optimize **FY26 Tax** (₹88.5K remaining).
+- Explore **ET Masterclasses**.
+**Where should we focus our strategy today?**`;
       chips = [
-        { label: 'Retirement gap priority',  highlight: true,  prompt: 'What is the fastest way to close my retirement gap?' },
-        { label: 'ET Markets top picks',     highlight: false, prompt: 'Show me ET Markets top mutual fund picks for my profile' },
-        { label: 'Tax optimisation',         highlight: false, prompt: 'How can I save maximum tax for FY26?' },
+        { label: '🚀 Fix Retirement Gap', highlight: true,  prompt: 'What is the fastest way to close my retirement gap?' },
+        { label: '📈 ET Markets Picks',  highlight: false, prompt: 'Show me ET Markets top mutual fund picks for my profile' },
+        { label: '💰 Tax Optimization',  highlight: false, prompt: 'How can I save maximum tax for FY26?' },
       ];
     }
 

@@ -38,7 +38,11 @@ Proving we solved every requirement of the hackathon's Problem Statement (PS):
 We implemented a **Hybrid Retrieval Strategy** to ensure zero-hallucination market advice:
 - **Yahoo Finance API**: Powers the real-time stock tickers, NIFTY/SENSEX levels, and market volatility sensors.
 - **Google Search (Custom Search API)**: Deep-crawls the ET Prime and ET Markets ecosystem for news-based sentiment and wealth summit schedules.
-- **Agentic Grounding**: Our agents are "grounded" in this dual-stream data before generating any user response.
+- **Grounded Knowledge**: We simulate a live knowledge base in `/data_sim` (partner rates, ET Prime articles) to prevent hallucinations.
+
+> [!TIP]
+> **Human-in-the-Loop: Suggestive UI Framework**
+> Instead of passive reporting, our Concierge uses **Proactive Prompting**. It identifies the highest-value financial action (e.g., a retirement gap) and presents it as the primary "Call to Action" via **Interactive Chips**, significantly increasing user engagement with ET's financial ecosystem.
 
 ## 🧪 High-Impact Prompt Engineering
 We use **Conservative Wealth Navigator** personas to ensure professional, private-banker quality advice. 
@@ -49,10 +53,8 @@ const systemPrompt = `
   You are the ET Concierge — a premium agentic AI layer.
   1. ANALYZE User Profile + Live Market Context.
   2. ADOPT Persona: Bloomberg Terminal meets Private Banker.
-  3. RULE: Use Chain-of-Thought to calculate 'Retirement Gap' 
-     before suggesting any ET Masterclass or SIP.
-  4. CITE: If a rate is mentioned (e.g. 8.35% HDFC), confirm 
-     it matches the latest data_sim/partner_rates.json.
+  3. RULE: Always end with a choice (e.g., "Should we focus on X or Y?").
+  4. FORMAT: Use bolding and lists for scannability.
 `;
 ```
 
