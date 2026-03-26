@@ -3,6 +3,17 @@
 
 ---
 
+## 📂 Submission Artifacts
+To help the judges navigate our comprehensive submission, we have organized the key non-code deliverables into dedicated folders:
+
+| Requirement | Artifact | Description |
+| :--- | :--- | :--- |
+| **3-Minute Pitch Video** | [**Pitch-Video/**](./Pitch-Video/) | Recorded walkthrough of the end-to-end agentic workflow. |
+| **Architecture Document** | [**Architecture/**](./Architecture/) | Detailed system diagram and agent orchestration logic. |
+| **Impact Model** | [**Impact-Model/**](./Impact-Model/) | Quantified business impact and ROI analysis. |
+
+---
+
 ## 🚀 The Vision
 ET Concierge is a **Multi-Agent Orchestration System** designed to bridge the gap between financial news and actionable wealth building. It proactively navigates the Economic Times ecosystem to deliver personalized, data-grounded intelligence.
 
@@ -57,18 +68,6 @@ const systemPrompt = `
   4. FORMAT: Use bolding and lists for scannability.
 `;
 ```
-
-## 💰 Business Impact Model
-Quantified estimates of the value ET Concierge v2 brings to the Economic Times ecosystem:
-
-1. **Discovery & Conversion**: 
-   - *Assumption*: Legacy search/navigation has a 12% click-through rate (CTR) to premium services.
-   - *Impact*: Agentic "Hook & Action" prompts are estimated to drive a **5x increase in CTR (up to 60%)** by identifying high-value financial gaps (e.g., ₹29L retirement gap) and offering direct solutions.
-2. **Retention (LTV)**:
-   - *Logic*: Users with a "Discovery Score" and "Goal Tracker" have a **40% higher retention rate** compared to passive readers.
-   - *Math*: Increasing the Average Revenue Per User (ARPU) by ₹450/year through ET Prime upsells and partner lead-gen.
-3. **Operational Efficiency**:
-   - *Benefit*: Reduces basic support queries by **30%** by providing instant, data-grounded answers to "How do I..." financial questions using the Navigator Agent.
 
 ## 🛠️ Tech Stack
 - **AI Core**: Gemini 1.5 Flash (via Google AI Studio) & GPT-4o
